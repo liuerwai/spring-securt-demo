@@ -1,12 +1,21 @@
 package com.example.demo.controller;
 
+import com.example.demo.po.MyUser;
+import com.example.demo.service.MyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 public class Controller {
+
+    @Autowired
+    MyService myService;
 
     @RequestMapping("/xxx")
     public String xxx(String username, String password, HttpSession session){
@@ -38,4 +47,16 @@ public class Controller {
 
         return "login"+ " : " + session.getId();
     }
+
+    @RequestMapping("/queryUser")
+    public List<MyUser> queryUser(String username, String password, HttpSession session){
+
+        MyUser myUser = new MyUser();
+        myUser.setUsername("liuxg");
+        List<MyUser> myUsers = new ArrayList<>();
+        myUsers.add(myUser);
+        return myService.queryUser(myUsers);
+    }
+
+
 }
